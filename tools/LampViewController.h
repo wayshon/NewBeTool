@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  LampViewController.h
 //  tools
 //
 //  Created by 王旭 on 2019/3/18.
@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+NS_ASSUME_NONNULL_BEGIN
 
+@interface LampViewController : UIViewController
 
 @end
 
+NS_ASSUME_NONNULL_END
