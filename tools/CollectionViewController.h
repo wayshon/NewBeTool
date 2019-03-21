@@ -1,8 +1,8 @@
 //
-//  VoiceViewController.h
+//  CollectionViewController.h
 //  tools
 //
-//  Created by 王旭 on 2019/3/18.
+//  Created by jike1 on 2019/3/21.
 //  Copyright © 2019 王旭. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VoiceViewController : UIViewController
+@interface CollectionViewController : UIViewController
 
 @end
 

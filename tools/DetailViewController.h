@@ -1,5 +1,5 @@
 //
-//  LampViewController.h
+//  DetailViewController.h
 //  tools
 //
 //  Created by 王旭 on 2019/3/18.
@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LampViewController : UIViewController
-
+@interface DetailViewController : UIViewController
+@property (nonatomic, strong) NSString *imgPath;
 @end
 
 NS_ASSUME_NONNULL_END
