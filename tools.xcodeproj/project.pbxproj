@@ -25,7 +25,11 @@
 		939EC7E422436B9700F64A0D /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 939EC7E322436B9700F64A0D /* HomeCollectionViewCell.m */; };
 		93CF84A5224369EA005834D1 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF84A4224369EA005834D1 /* CollectionViewController.m */; };
 		93D1D9BC2243B3B100E61BEF /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9BB2243B3B100E61BEF /* DetailViewController.m */; };
-		93D1D9C02243B57800E61BEF /* Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9BF2243B57800E61BEF /* Fetch.m */; };
+		93D1D9CE2243BCE800E61BEF /* WaterfallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9C72243BCE700E61BEF /* WaterfallCollectionViewCell.m */; };
+		93D1D9CF2243BCE800E61BEF /* WaterfallCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D1D9C82243BCE700E61BEF /* WaterfallCollectionViewCell.xib */; };
+		93D1D9D02243BCE800E61BEF /* WaterfallCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9C92243BCE700E61BEF /* WaterfallCollectionViewLayout.m */; };
+		93D1D9D12243BCE800E61BEF /* WaterfallCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9CB2243BCE800E61BEF /* WaterfallCollectionViewController.m */; };
+		93D1D9D52243CA3B00E61BEF /* Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9D42243CA3B00E61BEF /* Fetch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,8 +80,15 @@
 		93CF84A4224369EA005834D1 /* CollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		93D1D9BA2243B3B100E61BEF /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		93D1D9BB2243B3B100E61BEF /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		93D1D9BE2243B57800E61BEF /* Fetch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fetch.h; sourceTree = "<group>"; };
-		93D1D9BF2243B57800E61BEF /* Fetch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fetch.m; sourceTree = "<group>"; };
+		93D1D9C72243BCE700E61BEF /* WaterfallCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterfallCollectionViewCell.m; sourceTree = "<group>"; };
+		93D1D9C82243BCE700E61BEF /* WaterfallCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaterfallCollectionViewCell.xib; sourceTree = "<group>"; };
+		93D1D9C92243BCE700E61BEF /* WaterfallCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterfallCollectionViewLayout.m; sourceTree = "<group>"; };
+		93D1D9CA2243BCE800E61BEF /* WaterfallCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterfallCollectionViewCell.h; sourceTree = "<group>"; };
+		93D1D9CB2243BCE800E61BEF /* WaterfallCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterfallCollectionViewController.m; sourceTree = "<group>"; };
+		93D1D9CC2243BCE800E61BEF /* WaterfallCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterfallCollectionViewLayout.h; sourceTree = "<group>"; };
+		93D1D9CD2243BCE800E61BEF /* WaterfallCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterfallCollectionViewController.h; sourceTree = "<group>"; };
+		93D1D9D32243CA3B00E61BEF /* Fetch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fetch.h; sourceTree = "<group>"; };
+		93D1D9D42243CA3B00E61BEF /* Fetch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fetch.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				506DE03C223FE97100BE758A /* voice */,
-				93D1D9BD2243B54C00E61BEF /* area */,
+				93D1D9BD2243B54C00E61BEF /* Waterfall */,
+				93D1D9D22243CA1D00E61BEF /* fetchData */,
 				501148F8223FE44500E7AA2B /* AppDelegate.h */,
 				501148F9223FE44500E7AA2B /* AppDelegate.m */,
 				93D1D9BA2243B3B100E61BEF /* DetailViewController.h */,
@@ -182,13 +194,27 @@
 			path = voice;
 			sourceTree = "<group>";
 		};
-		93D1D9BD2243B54C00E61BEF /* area */ = {
+		93D1D9BD2243B54C00E61BEF /* Waterfall */ = {
 			isa = PBXGroup;
 			children = (
-				93D1D9BE2243B57800E61BEF /* Fetch.h */,
-				93D1D9BF2243B57800E61BEF /* Fetch.m */,
+				93D1D9CA2243BCE800E61BEF /* WaterfallCollectionViewCell.h */,
+				93D1D9C72243BCE700E61BEF /* WaterfallCollectionViewCell.m */,
+				93D1D9C82243BCE700E61BEF /* WaterfallCollectionViewCell.xib */,
+				93D1D9CD2243BCE800E61BEF /* WaterfallCollectionViewController.h */,
+				93D1D9CB2243BCE800E61BEF /* WaterfallCollectionViewController.m */,
+				93D1D9CC2243BCE800E61BEF /* WaterfallCollectionViewLayout.h */,
+				93D1D9C92243BCE700E61BEF /* WaterfallCollectionViewLayout.m */,
 			);
-			path = area;
+			path = Waterfall;
+			sourceTree = "<group>";
+		};
+		93D1D9D22243CA1D00E61BEF /* fetchData */ = {
+			isa = PBXGroup;
+			children = (
+				93D1D9D32243CA3B00E61BEF /* Fetch.h */,
+				93D1D9D42243CA3B00E61BEF /* Fetch.m */,
+			);
+			path = fetchData;
 			sourceTree = "<group>";
 		};
 		D1856031C4557B69D4520CE8 /* Pods */ = {
@@ -315,6 +341,7 @@
 			files = (
 				50114905223FE44700E7AA2B /* LaunchScreen.storyboard in Resources */,
 				506DE053223FFDFA00BE758A /* 蚊子.mp3 in Resources */,
+				93D1D9CF2243BCE800E61BEF /* WaterfallCollectionViewCell.xib in Resources */,
 				506DE041223FE97100BE758A /* 危险.mp3 in Resources */,
 				506DE044223FE97100BE758A /* 防空警报.mp3 in Resources */,
 				50114902223FE44700E7AA2B /* Assets.xcassets in Resources */,
@@ -386,7 +413,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93D1D9C02243B57800E61BEF /* Fetch.m in Sources */,
+				93D1D9D52243CA3B00E61BEF /* Fetch.m in Sources */,
+				93D1D9D12243BCE800E61BEF /* WaterfallCollectionViewController.m in Sources */,
+				93D1D9CE2243BCE800E61BEF /* WaterfallCollectionViewCell.m in Sources */,
+				93D1D9D02243BCE800E61BEF /* WaterfallCollectionViewLayout.m in Sources */,
 				93D1D9BC2243B3B100E61BEF /* DetailViewController.m in Sources */,
 				93CF84A5224369EA005834D1 /* CollectionViewController.m in Sources */,
 				939EC7E422436B9700F64A0D /* HomeCollectionViewCell.m in Sources */,

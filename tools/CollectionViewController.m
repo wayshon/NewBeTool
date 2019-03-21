@@ -9,6 +9,8 @@
 #import "CollectionViewController.h"
 #import "HomeCollectionViewCell.h"
 #import "DetailViewController.h"
+#import "WaterfallCollectionViewController.h"
+#import "SVProgressHUD.h"
 
 @interface CollectionViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) NSArray *imgs;
@@ -86,7 +88,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSString *imgPath = _imgs[indexPath.item];
     if ([imgPath isEqualToString:@"萌图"]) {
-        [self goFunnyArea];
+        [self judge];
     } else {
         UIStoryboard *MainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         DetailViewController *vc = [MainStoryboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
@@ -99,8 +101,56 @@
     return CGSizeMake((collectionView.frame.size.width - (20 * 4)) / 3, (collectionView.frame.size.width - (20 * 4)) / 3);
 }
 
-- (void)goFunnyArea {
-    
+- (void)judge {
+    NSInteger permissionNumber = [[NSUserDefaults standardUserDefaults] integerForKey:@"permissionNumber"];
+    if (permissionNumber != 0) {
+        [self goFunnyArea: permissionNumber];
+    } else {
+        [self alert];
+    }
 }
+
+- (void)goFunnyArea: (NSInteger)number {
+    [[NSUserDefaults standardUserDefaults] setInteger:number forKey:@"permissionNumber"];
+    WaterfallCollectionViewController *vc = [WaterfallCollectionViewController new];
+    vc.number = @(number);
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)alert {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请输入授权码" message:@"萌图里面是个人圈的宠物分享图，需要邀请码才可以查看." preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        textField.placeholder = @"邀请码";
+    }];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *codeField = alertController.textFields.firstObject;
+        NSString *code = codeField.text;
+        
+        if(!code || [code isEqualToString:@""]) {
+            [SVProgressHUD showErrorWithStatus:@"请输入内容"];
+            [self presentViewController:alertController animated:YES completion:nil];
+        } else if ([code isEqualToString:@"doudou"]){
+            [self goFunnyArea: 1];
+        } else {
+            //        请求接口
+            
+//            mock
+            if (true) {
+                [SVProgressHUD showErrorWithStatus:@"邀请码不正确"];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
+        }
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    }];
+    // 添加取消按钮才能点击空白隐藏
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 
 @end
