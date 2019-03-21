@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Fetch : NSObject
 
+@property (nonatomic, strong) NSArray *list;
+
++ (instancetype)sharedFetch;
+
 @end
 
 NS_ASSUME_NONNULL_END

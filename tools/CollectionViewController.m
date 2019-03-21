@@ -11,6 +11,7 @@
 #import "DetailViewController.h"
 #import "WaterfallCollectionViewController.h"
 #import "SVProgressHUD.h"
+#import "Fetch.h"
 
 @interface CollectionViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) NSArray *imgs;
@@ -24,6 +25,8 @@
     
     [self initData];
     [self initView];
+    
+    [Fetch sharedFetch];
 }
 
 - (void)initData {

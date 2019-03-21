@@ -9,6 +9,7 @@
 #import "WaterfallCollectionViewController.h"
 #import "WaterfallCollectionViewCell.h"
 #import "WaterfallCollectionViewLayout.h"
+#import "Fetch.h"
 
 #define RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define RandomRGBColor RGBColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
@@ -42,7 +43,7 @@ static NSString * const reuseIdentifier = @"WaterfallCollectionViewCell";
     if ([_number integerValue] == 1) {
         self.productArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18"];
     } else if ([_number integerValue] == 2) {
-//        抓数据去
+        self.productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];
     }
 }
 
@@ -60,7 +61,14 @@ static NSString * const reuseIdentifier = @"WaterfallCollectionViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WaterfallCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.backgroundColor = RandomRGBColor;
-    UIImage *image = [UIImage imageNamed:[self.productArray objectAtIndex:indexPath.item]];
+    NSString *src = [self.productArray objectAtIndex:indexPath.item];
+    UIImage *image;
+    if ([_number integerValue] == 2) {
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:src]];
+        image = [UIImage imageWithData:data];
+    } else {
+        image = [UIImage imageNamed:src];
+    }
     [cell.image setImage:image];
     return cell;
 }
@@ -69,11 +77,12 @@ static NSString * const reuseIdentifier = @"WaterfallCollectionViewCell";
 
 - (CGFloat)waterflowLayout:(WaterfallCollectionViewLayout *)waterflowLayout heightForItemAtIndex:(NSUInteger)index itemWidth:(CGFloat)itemWidth{
     // 获取图片的宽高，根据图片的比例计算Item的高度。
-    UIImage *image = [UIImage imageNamed:[self.productArray objectAtIndex:index]];
-    CGFloat fixelW = CGImageGetWidth(image.CGImage);
-    CGFloat fixelH = CGImageGetHeight(image.CGImage);
-    CGFloat itemHeight = fixelH * itemWidth / fixelW;
-    return itemHeight + 50;
+//    UIImage *image = [UIImage imageNamed:[self.productArray objectAtIndex:index]];
+//    CGFloat fixelW = CGImageGetWidth(image.CGImage);
+//    CGFloat fixelH = CGImageGetHeight(image.CGImage);
+//    CGFloat itemHeight = fixelH * itemWidth / fixelW;
+//    return itemHeight + 50;
+    return 300;
 }
 
 - (NSInteger)columnCountInWaterflowLayout:(WaterfallCollectionViewLayout *)waterflowLayout{
