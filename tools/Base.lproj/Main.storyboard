@@ -42,5 +42,55 @@
             </objects>
             <point key="canvasLocation" x="1130" y="-1488"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="TR5-Zm-ap9">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="Am0-Qe-uoK" customClass="DetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fKo-qs-Tsd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bfI-q5-ijc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uY0-aJ-R8B">
+                                <rect key="frame" x="20" y="70" width="40" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="31T-OX-XK9"/>
+                                    <constraint firstAttribute="height" constant="40" id="AxU-Cl-Idt"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyN-pH-pFU">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <action selector="switch:" destination="Am0-Qe-uoK" eventType="touchUpInside" id="Pcz-7v-sMc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bfI-q5-ijc" firstAttribute="top" secondItem="fKo-qs-Tsd" secondAttribute="top" id="5lE-Zu-oze"/>
+                            <constraint firstItem="bfI-q5-ijc" firstAttribute="trailing" secondItem="Zsn-Nd-Gu3" secondAttribute="trailing" id="7WM-5L-zeh"/>
+                            <constraint firstItem="bfI-q5-ijc" firstAttribute="leading" secondItem="Zsn-Nd-Gu3" secondAttribute="leading" id="UNC-f8-Jn2"/>
+                            <constraint firstItem="yyN-pH-pFU" firstAttribute="leading" secondItem="Zsn-Nd-Gu3" secondAttribute="leading" id="VOF-h8-lAW"/>
+                            <constraint firstItem="uY0-aJ-R8B" firstAttribute="leading" secondItem="Zsn-Nd-Gu3" secondAttribute="leading" constant="20" id="bJ5-sP-RdP"/>
+                            <constraint firstItem="yyN-pH-pFU" firstAttribute="top" secondItem="fKo-qs-Tsd" secondAttribute="top" id="fmA-sC-kW0"/>
+                            <constraint firstItem="uY0-aJ-R8B" firstAttribute="top" secondItem="Zsn-Nd-Gu3" secondAttribute="top" constant="50" id="j6b-de-5A6"/>
+                            <constraint firstItem="bfI-q5-ijc" firstAttribute="bottom" secondItem="Zsn-Nd-Gu3" secondAttribute="bottom" id="nda-hY-hxO"/>
+                            <constraint firstItem="yyN-pH-pFU" firstAttribute="trailing" secondItem="Zsn-Nd-Gu3" secondAttribute="trailing" id="puv-NO-FVn"/>
+                            <constraint firstItem="yyN-pH-pFU" firstAttribute="bottom" secondItem="Zsn-Nd-Gu3" secondAttribute="bottom" id="y0d-8g-4PX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Zsn-Nd-Gu3"/>
+                    </view>
+                    <connections>
+                        <outlet property="imgView" destination="bfI-q5-ijc" id="crc-J5-ldM"/>
+                        <outlet property="statusView" destination="uY0-aJ-R8B" id="iR4-gZ-l5O"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TaT-uv-Lb4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1906.4000000000001" y="-1490.1049475262371"/>
+        </scene>
     </scenes>
 </document>

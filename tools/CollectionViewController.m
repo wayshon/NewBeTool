@@ -89,7 +89,7 @@
         [self goFunnyArea];
     } else {
         UIStoryboard *MainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        DetailViewController *vc = [MainStoryboard instantiateViewControllerWithIdentifier:@"VibrationViewController"];
+        DetailViewController *vc = [MainStoryboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
         vc.imgPath = imgPath;
         [self.navigationController showViewController:vc sender: nil];
     }

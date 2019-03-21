@@ -19,12 +19,13 @@
 		506DE042223FE97100BE758A /* SOS.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE03E223FE97100BE758A /* SOS.mp3 */; };
 		506DE043223FE97100BE758A /* 警报器.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE03F223FE97100BE758A /* 警报器.mp3 */; };
 		506DE044223FE97100BE758A /* 防空警报.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE040223FE97100BE758A /* 防空警报.mp3 */; };
-		506DE04A223FF67300BE758A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506DE049223FF67300BE758A /* DetailViewController.m */; };
 		506DE04F223FFD1400BE758A /* 剃须刀.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE04E223FFD1400BE758A /* 剃须刀.mp3 */; };
 		506DE051223FFD6800BE758A /* 电锯.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE050223FFD6800BE758A /* 电锯.mp3 */; };
 		506DE053223FFDFA00BE758A /* 蚊子.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE052223FFDFA00BE758A /* 蚊子.mp3 */; };
 		939EC7E422436B9700F64A0D /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 939EC7E322436B9700F64A0D /* HomeCollectionViewCell.m */; };
 		93CF84A5224369EA005834D1 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF84A4224369EA005834D1 /* CollectionViewController.m */; };
+		93D1D9BC2243B3B100E61BEF /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9BB2243B3B100E61BEF /* DetailViewController.m */; };
+		93D1D9C02243B57800E61BEF /* Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9BF2243B57800E61BEF /* Fetch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +64,6 @@
 		506DE03E223FE97100BE758A /* SOS.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SOS.mp3; sourceTree = "<group>"; };
 		506DE03F223FE97100BE758A /* 警报器.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "警报器.mp3"; sourceTree = "<group>"; };
 		506DE040223FE97100BE758A /* 防空警报.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "防空警报.mp3"; sourceTree = "<group>"; };
-		506DE048223FF67300BE758A /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		506DE049223FF67300BE758A /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		506DE04E223FFD1400BE758A /* 剃须刀.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "剃须刀.mp3"; sourceTree = "<group>"; };
 		506DE050223FFD6800BE758A /* 电锯.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "电锯.mp3"; sourceTree = "<group>"; };
 		506DE052223FFDFA00BE758A /* 蚊子.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "蚊子.mp3"; sourceTree = "<group>"; };
@@ -75,6 +74,10 @@
 		939EC7E322436B9700F64A0D /* HomeCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionViewCell.m; sourceTree = "<group>"; };
 		93CF84A3224369EA005834D1 /* CollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
 		93CF84A4224369EA005834D1 /* CollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		93D1D9BA2243B3B100E61BEF /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		93D1D9BB2243B3B100E61BEF /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		93D1D9BE2243B57800E61BEF /* Fetch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fetch.h; sourceTree = "<group>"; };
+		93D1D9BF2243B57800E61BEF /* Fetch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fetch.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,10 +132,11 @@
 			isa = PBXGroup;
 			children = (
 				506DE03C223FE97100BE758A /* voice */,
+				93D1D9BD2243B54C00E61BEF /* area */,
 				501148F8223FE44500E7AA2B /* AppDelegate.h */,
 				501148F9223FE44500E7AA2B /* AppDelegate.m */,
-				506DE048223FF67300BE758A /* DetailViewController.h */,
-				506DE049223FF67300BE758A /* DetailViewController.m */,
+				93D1D9BA2243B3B100E61BEF /* DetailViewController.h */,
+				93D1D9BB2243B3B100E61BEF /* DetailViewController.m */,
 				93CF84A3224369EA005834D1 /* CollectionViewController.h */,
 				93CF84A4224369EA005834D1 /* CollectionViewController.m */,
 				939EC7E222436B9700F64A0D /* HomeCollectionViewCell.h */,
@@ -176,6 +180,15 @@
 				506DE052223FFDFA00BE758A /* 蚊子.mp3 */,
 			);
 			path = voice;
+			sourceTree = "<group>";
+		};
+		93D1D9BD2243B54C00E61BEF /* area */ = {
+			isa = PBXGroup;
+			children = (
+				93D1D9BE2243B57800E61BEF /* Fetch.h */,
+				93D1D9BF2243B57800E61BEF /* Fetch.m */,
+			);
+			path = area;
 			sourceTree = "<group>";
 		};
 		D1856031C4557B69D4520CE8 /* Pods */ = {
@@ -373,7 +386,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				506DE04A223FF67300BE758A /* DetailViewController.m in Sources */,
+				93D1D9C02243B57800E61BEF /* Fetch.m in Sources */,
+				93D1D9BC2243B3B100E61BEF /* DetailViewController.m in Sources */,
 				93CF84A5224369EA005834D1 /* CollectionViewController.m in Sources */,
 				939EC7E422436B9700F64A0D /* HomeCollectionViewCell.m in Sources */,
 				50114908223FE44700E7AA2B /* main.m in Sources */,
