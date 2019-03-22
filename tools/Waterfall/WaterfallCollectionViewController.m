@@ -10,19 +10,20 @@
 #import "WaterfallCollectionViewCell.h"
 #import "WaterfallCollectionViewLayout.h"
 #import "Fetch.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #define RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define RandomRGBColor RGBColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
 
 @interface WaterfallCollectionViewController ()<WaterfallCollectionViewDelegate>
 
-@property(nonatomic,strong)NSArray *productArray;
+@property (nonatomic, strong) NSArray *productArray;
 
 @end
 
 @implementation WaterfallCollectionViewController
 
-static NSString * const reuseIdentifier = @"WaterfallCollectionViewCell";
+static NSString * const reuseIdentifier = @"WXCell";
 
 -(instancetype)init{
     WaterfallCollectionViewLayout *layout = [WaterfallCollectionViewLayout new];
@@ -33,18 +34,26 @@ static NSString * const reuseIdentifier = @"WaterfallCollectionViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"萌图";
-    [self initData];
-    // Register cell classes
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WaterfallCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
+    
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     self.collectionView.backgroundColor = RGBColor(235, 235, 235);
+    
+    [Fetch sharedFetch].block = ^(NSArray *array){
+        NSLog(@"block ==================  %@", array);
+        NSArray *tempArray = [self.productArray arrayByAddingObjectsFromArray:array];
+        self.productArray = [NSArray arrayWithArray:tempArray];
+    };
 }
 
-- (void)initData {
-    if ([_number integerValue] == 1) {
-        self.productArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18"];
-    } else if ([_number integerValue] == 2) {
-        self.productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];
+- (NSArray *)productArray {
+    if (_productArray == nil) {
+        if ([_number integerValue] == 1) {
+            _productArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18"];
+        } else if ([_number integerValue] == 2) {
+            _productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];
+        }
     }
+    return _productArray;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,17 +68,16 @@ static NSString * const reuseIdentifier = @"WaterfallCollectionViewCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WaterfallCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.backgroundColor = RandomRGBColor;
     NSString *src = [self.productArray objectAtIndex:indexPath.item];
-    UIImage *image;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
     if ([_number integerValue] == 2) {
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:src]];
-        image = [UIImage imageWithData:data];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:src]];
     } else {
-        image = [UIImage imageNamed:src];
+        [imageView setImage:[UIImage imageNamed:src]];
     }
-    [cell.image setImage:image];
+    [cell addSubview:imageView];
     return cell;
 }
 

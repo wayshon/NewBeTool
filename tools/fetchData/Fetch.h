@@ -12,7 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Fetch : NSObject
 
+/**
+ block回调
+ 
+ @param array 抓取的数组
+ */
+typedef void(^FetchDataBlock)(NSArray * _Nullable array);
+
 @property (nonatomic, strong) NSArray *list;
+
+@property(nonatomic, copy) FetchDataBlock block;
 
 + (instancetype)sharedFetch;
 

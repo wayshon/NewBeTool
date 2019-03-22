@@ -23,6 +23,7 @@
 		506DE051223FFD6800BE758A /* 电锯.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE050223FFD6800BE758A /* 电锯.mp3 */; };
 		506DE053223FFDFA00BE758A /* 蚊子.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE052223FFDFA00BE758A /* 蚊子.mp3 */; };
 		939EC7E422436B9700F64A0D /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 939EC7E322436B9700F64A0D /* HomeCollectionViewCell.m */; };
+		93BE51952244D03B00CDCF30 /* oooCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BE51942244D03B00CDCF30 /* oooCollectionViewController.m */; };
 		93CF84A5224369EA005834D1 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CF84A4224369EA005834D1 /* CollectionViewController.m */; };
 		93D1D9BC2243B3B100E61BEF /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9BB2243B3B100E61BEF /* DetailViewController.m */; };
 		93D1D9CE2243BCE800E61BEF /* WaterfallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D1D9C72243BCE700E61BEF /* WaterfallCollectionViewCell.m */; };
@@ -91,6 +92,8 @@
 		8DC75084102E230B6709ACA9 /* Pods-tools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tools.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tools/Pods-tools.debug.xcconfig"; sourceTree = "<group>"; };
 		939EC7E222436B9700F64A0D /* HomeCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCollectionViewCell.h; sourceTree = "<group>"; };
 		939EC7E322436B9700F64A0D /* HomeCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionViewCell.m; sourceTree = "<group>"; };
+		93BE51932244D03B00CDCF30 /* oooCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oooCollectionViewController.h; sourceTree = "<group>"; };
+		93BE51942244D03B00CDCF30 /* oooCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oooCollectionViewController.m; sourceTree = "<group>"; };
 		93CF84A3224369EA005834D1 /* CollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
 		93CF84A4224369EA005834D1 /* CollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		93D1D9BA2243B3B100E61BEF /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -195,6 +198,7 @@
 				93D1D9E62243D0C000E61BEF /* libs */,
 				506DE03C223FE97100BE758A /* voice */,
 				93D1D9BD2243B54C00E61BEF /* Waterfall */,
+				93BE518C2244A59800CDCF30 /* scan */,
 				93D1D9D22243CA1D00E61BEF /* fetchData */,
 				501148F8223FE44500E7AA2B /* AppDelegate.h */,
 				501148F9223FE44500E7AA2B /* AppDelegate.m */,
@@ -245,6 +249,13 @@
 			path = voice;
 			sourceTree = "<group>";
 		};
+		93BE518C2244A59800CDCF30 /* scan */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = scan;
+			sourceTree = "<group>";
+		};
 		93D1D9BD2243B54C00E61BEF /* Waterfall */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +266,8 @@
 				93D1D9CB2243BCE800E61BEF /* WaterfallCollectionViewController.m */,
 				93D1D9CC2243BCE800E61BEF /* WaterfallCollectionViewLayout.h */,
 				93D1D9C92243BCE700E61BEF /* WaterfallCollectionViewLayout.m */,
+				93BE51932244D03B00CDCF30 /* oooCollectionViewController.h */,
+				93BE51942244D03B00CDCF30 /* oooCollectionViewController.m */,
 			);
 			path = Waterfall;
 			sourceTree = "<group>";
@@ -534,6 +547,7 @@
 			files = (
 				93D1DA132243D0D400E61BEF /* utf8.c in Sources */,
 				93D1DA1A2243D0D400E61BEF /* OCGumbo+Query.m in Sources */,
+				93BE51952244D03B00CDCF30 /* oooCollectionViewController.m in Sources */,
 				93D1DA0D2243D0D400E61BEF /* string_buffer.c in Sources */,
 				93D1DA182243D0D400E61BEF /* tokenizer.c in Sources */,
 				93D1DA142243D0D400E61BEF /* error.c in Sources */,

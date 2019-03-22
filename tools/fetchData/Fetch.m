@@ -82,6 +82,9 @@ static Fetch *singInstance = nil;
         }];
         if ([mutableList count] > 0) {
             self.list = [NSArray arrayWithArray:mutableList];
+            if (_block) {
+                _block(_list);
+            }
         }
     }
     

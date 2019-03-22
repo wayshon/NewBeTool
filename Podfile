@@ -3,5 +3,6 @@ platform :ios, '9.0'
 
 target 'tools' do
     pod 'SVProgressHUD'
+    pod 'SDWebImage'
 end
 

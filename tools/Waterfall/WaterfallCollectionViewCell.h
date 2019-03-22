@@ -10,6 +10,6 @@
 
 @interface WaterfallCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic,weak)IBOutlet UIImageView *image;
+@property (nonatomic,weak)IBOutlet UIImageView *imageView;
 
 @end
