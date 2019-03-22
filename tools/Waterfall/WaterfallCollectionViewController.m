@@ -10,7 +10,9 @@
 #import "WaterfallCollectionViewCell.h"
 #import "WaterfallCollectionViewLayout.h"
 #import "Fetch.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "WaterfallCollectionViewCell.h"
+#import "WebViewController.h"
+#import "WaterfallModel.h"
 
 #define RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define RandomRGBColor RGBColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
@@ -48,13 +50,15 @@ static NSString * const reuseIdentifier = @"WXCell";
 - (NSArray *)productArray {
     if (_productArray == nil) {
         if ([_number integerValue] == 1) {
-            _productArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18"];
+            _productArray = @[@{@"title":@"豆豆", @"title":@"1", @"href":@""},@{@"title":@"豆豆", @"title":@"2", @"href":@""},@{@"title":@"豆豆", @"title":@"3", @"href":@""},@{@"title":@"豆豆", @"title":@"4", @"href":@""},@{@"title":@"豆豆", @"title":@"5", @"href":@""},@{@"title":@"豆豆", @"title":@"6", @"href":@""},@{@"title":@"豆豆", @"title":@"7", @"href":@""},@{@"title":@"豆豆", @"title":@"8", @"href":@""},@{@"title":@"豆豆", @"title":@"9", @"href":@""},@{@"title":@"豆豆", @"title":@"10", @"href":@""},@{@"title":@"豆豆", @"title":@"11", @"href":@""},@{@"title":@"豆豆", @"title":@"12", @"href":@""},@{@"title":@"豆豆", @"title":@"13", @"href":@""},@{@"title":@"豆豆", @"title":@"14", @"href":@""},@{@"title":@"豆豆", @"title":@"15", @"href":@""},@{@"title":@"豆豆", @"title":@"16", @"href":@""},@{@"title":@"豆豆", @"title":@"17", @"href":@""},@{@"title":@"豆豆", @"title":@"18", @"href":@""}];
         } else if ([_number integerValue] == 2) {
             _productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];
         }
     }
     return _productArray;
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -68,17 +72,25 @@ static NSString * const reuseIdentifier = @"WXCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = RandomRGBColor;
-    NSString *src = [self.productArray objectAtIndex:indexPath.item];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
-    if ([_number integerValue] == 2) {
-        [imageView sd_setImageWithURL:[NSURL URLWithString:src]];
-    } else {
-        [imageView setImage:[UIImage imageNamed:src]];
-    }
-    [cell addSubview:imageView];
+    WaterfallCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    
+    WaterfallModel *model = [[WaterfallModel alloc] init];
+    NSDictionary *dic = [self.productArray objectAtIndex:indexPath.row];
+    [model setValuesForKeysWithDictionary: dic];
+    
+    cell.model = model;
+    
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSObject *obj = [self.productArray objectAtIndex:indexPath.item];
+    NSString *url = [obj valueForKey:@"href"];
+    if (url && ![url isEqualToString:@""]) {
+        WebViewController *vc = [WebViewController new];
+        vc.url = url;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark <WaterfallCollectionViewDelegate>

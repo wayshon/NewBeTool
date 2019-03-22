@@ -1,15 +1,24 @@
 //
 //  WaterfallCollectionViewCell.h
-//  UICollectionVIewDemo
+//  tools
 //
-//  Created by DaLei on 2017/6/8.
-//  Copyright © 2017年 DaLei. All rights reserved.
+//  Created by jike1 on 2019/3/22.
+//  Copyright © 2019 王旭. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "WaterfallModel.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WaterfallCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic,weak)IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) WaterfallModel *model;
+
+- (instancetype)init;
+- (instancetype)initWithFrame:(CGRect)frame;
+- (void)setFrame:(CGRect)frame;
 
 @end
+
+NS_ASSUME_NONNULL_END

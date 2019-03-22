@@ -10,6 +10,9 @@
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 
+#define HOST @"https://www.2717.com"
+#define PATH @"/ent/meinvtupian/"
+
 static Fetch *singInstance = nil;
 
 @implementation Fetch
@@ -49,10 +52,9 @@ static Fetch *singInstance = nil;
 }
 
 - (void)getData {
-    NSString *urlString = @"https://www.2717.com/ent/meinvtupian/";
-    urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *urlString = [[NSString stringWithFormat:@"%@%@", HOST, PATH] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLSessionDataTask * dataTask =  [session dataTaskWithRequest:request completionHandler:^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
@@ -70,14 +72,21 @@ static Fetch *singInstance = nil;
         return;
     }
     OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-    NSArray *array = document.Query(@".MeinvTuPianBox").find(@"img");
+    NSArray *array = document.Query(@".MeinvTuPianBox").find(@"li");
     
     if ([array count] > 0) {
         NSMutableArray *mutableList = [NSMutableArray new];
         [array enumerateObjectsUsingBlock:^(OCGumboElement *ele, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString *src = ele.attr(@"src");
+            OCGumboNode *a = ele.Query(@"a").first();
+            NSString *href = a.attr(@"href");
+            NSString *title = a.attr(@"title");
+            NSString *src = ele.Query(@"img").first().attr(@"src");
             if (src && ![src isEqualToString:@""]) {
-                [mutableList addObject:src];
+                [mutableList addObject:@{
+                                         @"title": title,
+                                         @"href": [NSString stringWithFormat:@"%@%@", HOST, href],
+                                         @"src": src
+                                         }];
             }
         }];
         if ([mutableList count] > 0) {

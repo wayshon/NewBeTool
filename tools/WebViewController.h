@@ -1,5 +1,5 @@
 //
-//  oooCollectionViewController.h
+//  WebViewController.h
 //  tools
 //
 //  Created by jike1 on 2019/3/22.
@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface oooCollectionViewController : UICollectionViewController
+@interface WebViewController : UIViewController
+
+@property (nonatomic, strong) NSString *url;
 
 @end
 
