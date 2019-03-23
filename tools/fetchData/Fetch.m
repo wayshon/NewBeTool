@@ -10,9 +10,6 @@
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 
-#define HOST @"https://www.2717.com"
-#define PATH @"/ent/meinvtupian/"
-
 static Fetch *singInstance = nil;
 
 @implementation Fetch

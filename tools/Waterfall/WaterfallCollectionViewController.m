@@ -11,7 +11,7 @@
 #import "WaterfallCollectionViewLayout.h"
 #import "Fetch.h"
 #import "WaterfallCollectionViewCell.h"
-#import "WebViewController.h"
+#import "ScanViewController.h"
 #import "WaterfallModel.h"
 
 #define RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
@@ -37,13 +37,16 @@ static NSString * const reuseIdentifier = @"WXCell";
     [super viewDidLoad];
     self.title = @"萌图";
     
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[WaterfallCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     self.collectionView.backgroundColor = RGBColor(235, 235, 235);
     
     [Fetch sharedFetch].block = ^(NSArray *array){
         NSLog(@"block ==================  %@", array);
         NSArray *tempArray = [self.productArray arrayByAddingObjectsFromArray:array];
         self.productArray = [NSArray arrayWithArray:tempArray];
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            [self.collectionView reloadData];
+        });
     };
 }
 
@@ -87,8 +90,8 @@ static NSString * const reuseIdentifier = @"WXCell";
     NSObject *obj = [self.productArray objectAtIndex:indexPath.item];
     NSString *url = [obj valueForKey:@"href"];
     if (url && ![url isEqualToString:@""]) {
-        WebViewController *vc = [WebViewController new];
-        vc.url = url;
+        ScanViewController *vc = [ScanViewController new];
+        vc.path = url;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

@@ -1,0 +1,15 @@
+//
+//  PrefixHeader.h
+//  tools
+//
+//  Created by 王旭 on 2019/3/23.
+//  Copyright © 2019 王旭. All rights reserved.
+//
+
+#ifndef PrefixHeader_h
+#define PrefixHeader_h
+
+#define HOST @"https://www.2717.com"
+#define PATH @"/ent/meinvtupian/"
+
+#endif /* PrefixHeader_h */
