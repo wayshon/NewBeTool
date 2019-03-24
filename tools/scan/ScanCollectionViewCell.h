@@ -10,9 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^ScanCellBlock)(NSInteger index);
+
 @interface ScanCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) NSString *src;
+@property (nonatomic, strong) NSDictionary *dic;
+@property (nonatomic, copy) ScanCellBlock block;
 
 - (instancetype)init;
 - (instancetype)initWithFrame:(CGRect)frame;

@@ -50,10 +50,16 @@
     }
 }
 
-- (void)setSrc:(NSString *)src {
-    _src = src;
+- (void)setDic:(NSDictionary *)dic {
+    _dic = dic;
+    NSString *src = [dic valueForKey:@"src"];
     [self updateViews];
-    [self.imgView sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[self createImageWithColor: RandomRGBColor]];
+    [self.imgView sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[self createImageWithColor: RandomRGBColor] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error && self.block) {
+            NSNumber *num = [dic valueForKey:@"index"];
+            self.block([num integerValue]);
+        }
+    }];
     [self addSubview:self.imgView];
 }
 

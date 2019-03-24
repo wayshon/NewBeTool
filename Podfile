@@ -2,7 +2,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 
 target 'tools' do
-    pod 'SVProgressHUD'
-    pod 'SDWebImage'
+    pod 'SVProgressHUD', '~> 2.2.5';
+    pod 'SDWebImage', '~> 4.4.6';
+    pod 'YBImageBrowser', '~> 2.1.5';
 end
 

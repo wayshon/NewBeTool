@@ -11,10 +11,12 @@
 #import "SVProgressHUD.h"
 #import "ScanCollectionViewCell.h"
 #import "WaterfallCollectionViewLayout.h"
+#import "YBImageBrowser.h"
 
-@interface ScanViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, WaterfallCollectionViewDelegate>
+@interface ScanViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, WaterfallCollectionViewDelegate, YBImageBrowserDataSource, YBImageBrowserSheetViewProtocol>
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSArray *imgs;
+@property (nonatomic, strong) NSMutableArray *imgs;
+@property (nonatomic, strong) YBImageBrowser *browser;
 @end
 
 @implementation ScanViewController
@@ -29,7 +31,6 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
     
     [self initData];
     [self initView];
-    
 }
 
 - (void)initData {
@@ -37,13 +38,7 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
         [SVProgressHUD showWithStatus:@"加载中.."];
         [FetchDetail fetchData:_path Block:^(NSArray *result) {
             NSLog(@"*****  result  == %@", result);
-            self.imgs = [NSArray arrayWithArray:result];
-//            NSMutableArray *tempArray = [NSMutableArray new];
-//            [result enumerateObjectsUsingBlock:^(NSString *src, NSUInteger idx, BOOL * _Nonnull stop) {
-//                [tempArray addObject:@{@""}]
-//
-//            }];
-            
+            self.imgs = [NSMutableArray arrayWithArray:result];
             dispatch_async(dispatch_get_main_queue(), ^() {
                 [SVProgressHUD dismiss];
                 [self.collectionView reloadData];
@@ -54,12 +49,18 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
 
 - (NSArray *)imgs {
     if (!_imgs) {
-        _imgs = [NSArray new];
+        _imgs = [NSMutableArray new];
     }
     return _imgs;
 }
 
 - (void)initView {
+    self.browser = [YBImageBrowser new];
+    self.browser.dataSource = self;
+    
+    UIView *v = self.browser.sheetView;
+    NSLog(@"=== %@", v);
+    
     CGSize size = [UIScreen mainScreen].bounds.size;
     CGFloat kScreenWidth = size.width;
     CGFloat kScreenHeight = size.height;
@@ -89,13 +90,20 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ScanCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    cell.src = _imgs[indexPath.row];
+    NSString *src = _imgs[indexPath.row];
+    NSDictionary *dic = @{@"src": src, @"index": @(indexPath.row)};
+    cell.block = ^(NSInteger index) {
+        [self.imgs removeObjectAtIndex:index];
+        [self.collectionView reloadData];
+    };
+    cell.dic = dic;
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    NSInteger index = indexPath.item;
+    self.browser.currentIndex = indexPath.item;
+    [self.browser show];
 }
 
 #pragma mark <WaterfallCollectionViewDelegate>
@@ -126,5 +134,19 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
     return UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
+#pragma mark 实现 <YBImageBrowserDataSource> 协议方法配置数据源
+- (NSUInteger)yb_numberOfCellForImageBrowserView:(YBImageBrowserView *)imageBrowserView {
+    return [_imgs count];
+}
+- (id<YBImageBrowserCellDataProtocol>)yb_imageBrowserView:(YBImageBrowserView *)imageBrowserView dataForCellAtIndex:(NSUInteger)index {
+    YBImageBrowseCellData *data = [YBImageBrowseCellData new];
+    data.url = _imgs[index];
+//    data.sourceObject = ...;
+    return data;
+}
+
+- (void)yb_browserShowSheetViewWithData:(id<YBImageBrowserCellDataProtocol>)data layoutDirection:(YBImageBrowserLayoutDirection)layoutDirection containerSize:(CGSize)containerSize {
+    
+}
 
 @end
