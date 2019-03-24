@@ -13,10 +13,9 @@
 #import "WaterfallCollectionViewLayout.h"
 #import "YBImageBrowser.h"
 
-@interface ScanViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, WaterfallCollectionViewDelegate, YBImageBrowserDataSource, YBImageBrowserSheetViewProtocol>
+@interface ScanViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, WaterfallCollectionViewDelegate, YBImageBrowserDataSource>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *imgs;
-@property (nonatomic, strong) YBImageBrowser *browser;
 @end
 
 @implementation ScanViewController
@@ -31,6 +30,7 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
     
     [self initData];
     [self initView];
+    
 }
 
 - (void)initData {
@@ -55,12 +55,6 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
 }
 
 - (void)initView {
-    self.browser = [YBImageBrowser new];
-    self.browser.dataSource = self;
-    
-    UIView *v = self.browser.sheetView;
-    NSLog(@"=== %@", v);
-    
     CGSize size = [UIScreen mainScreen].bounds.size;
     CGFloat kScreenWidth = size.width;
     CGFloat kScreenHeight = size.height;
@@ -102,8 +96,10 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    self.browser.currentIndex = indexPath.item;
-    [self.browser show];
+    YBImageBrowser *browser = [YBImageBrowser new];
+    browser.dataSource = self;
+    browser.currentIndex = indexPath.item;
+    [browser show];
 }
 
 #pragma mark <WaterfallCollectionViewDelegate>
@@ -143,10 +139,6 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
     data.url = _imgs[index];
 //    data.sourceObject = ...;
     return data;
-}
-
-- (void)yb_browserShowSheetViewWithData:(id<YBImageBrowserCellDataProtocol>)data layoutDirection:(YBImageBrowserLayoutDirection)layoutDirection containerSize:(CGSize)containerSize {
-    
 }
 
 @end
