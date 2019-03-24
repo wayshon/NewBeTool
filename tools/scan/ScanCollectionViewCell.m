@@ -55,9 +55,12 @@
     NSString *src = [dic valueForKey:@"src"];
     [self updateViews];
     [self.imgView sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[self createImageWithColor: RandomRGBColor] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if (error && self.block) {
-            NSNumber *num = [dic valueForKey:@"index"];
-            self.block([num integerValue]);
+        NSNumber *num = [dic valueForKey:@"index"];
+        if (error && self.errorBlock) {
+            self.errorBlock([num integerValue]);
+        } else if (self.successBlock) {
+            self.successBlock([num integerValue], image);
+            [self updateImage];
         }
     }];
     [self addSubview:self.imgView];
@@ -66,6 +69,15 @@
 - (void)updateViews {
     CGSize size = self.bounds.size;
     [self.imgView setFrame:CGRectMake(0, 0, size.width, size.height - 28)];
+}
+
+- (void)updateImage {
+    CGSize size = self.bounds.size;
+    UIImage *image = self.imgView.image;
+    CGFloat fixelW = CGImageGetWidth(image.CGImage);
+    CGFloat fixelH = CGImageGetHeight(image.CGImage);
+    CGFloat itemHeight = fixelH * size.width / fixelW;
+    [self.imgView setFrame:CGRectMake(0, 0, size.width, itemHeight + 50)];
 }
 
 - (UIImage*)createImageWithColor: (UIColor*) color {

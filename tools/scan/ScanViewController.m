@@ -15,7 +15,9 @@
 
 @interface ScanViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, WaterfallCollectionViewDelegate, YBImageBrowserDataSource>
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) WaterfallCollectionViewLayout *layout;
 @property (nonatomic, strong) NSMutableArray *imgs;
+@property (nonatomic, strong) NSMutableArray *imagesCaches;
 @end
 
 @implementation ScanViewController
@@ -54,23 +56,30 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
     return _imgs;
 }
 
+- (NSArray *)imagesCaches {
+    if (!_imagesCaches) {
+        _imagesCaches = [NSMutableArray new];
+    }
+    return _imagesCaches;
+}
+
 - (void)initView {
     CGSize size = [UIScreen mainScreen].bounds.size;
     CGFloat kScreenWidth = size.width;
     CGFloat kScreenHeight = size.height;
     
-    WaterfallCollectionViewLayout *layout = [WaterfallCollectionViewLayout new];
-    layout.delegate = self;
+    self.layout = [WaterfallCollectionViewLayout new];
+    self.layout.delegate = self;
     /**
      创建collectionView
      */
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) collectionViewLayout:self.layout];
     [self.collectionView setBackgroundColor:[UIColor colorWithRed:182 green:238 blue:238 alpha:1]];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerClass:[ScanCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    [self.view addSubview:self.collectionView];
-}
+    self.collectionView.bounces = NO;
+    [self.view addSubview:self.collectionView];}
 
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -86,9 +95,19 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
     
     NSString *src = _imgs[indexPath.row];
     NSDictionary *dic = @{@"src": src, @"index": @(indexPath.row)};
-    cell.block = ^(NSInteger index) {
+    cell.errorBlock = ^(NSInteger index) {
         [self.imgs removeObjectAtIndex:index];
         [self.collectionView reloadData];
+    };
+    cell.successBlock = ^(NSInteger index, UIImage *image) {
+        if (index < [self.imagesCaches count]) {
+            self.imagesCaches[index] = image;
+        } else {
+            [self.imagesCaches addObject:image];
+        }
+        [self.layout prepareLayout];
+        [self.layout layoutAttributesForItemAtIndexPath:indexPath];
+        
     };
     cell.dic = dic;
     
@@ -106,12 +125,15 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
 
 - (CGFloat)waterflowLayout:(WaterfallCollectionViewLayout *)waterflowLayout heightForItemAtIndex:(NSUInteger)index itemWidth:(CGFloat)itemWidth{
     // 获取图片的宽高，根据图片的比例计算Item的高度。
-    //    UIImage *image = [UIImage imageNamed:[self.productArray objectAtIndex:index]];
-    //    CGFloat fixelW = CGImageGetWidth(image.CGImage);
-    //    CGFloat fixelH = CGImageGetHeight(image.CGImage);
-    //    CGFloat itemHeight = fixelH * itemWidth / fixelW;
-    //    return itemHeight + 50;
-    return 300;
+    if (index < [_imagesCaches count]) {
+        UIImage *image = [_imagesCaches objectAtIndex:index];
+        CGFloat fixelW = CGImageGetWidth(image.CGImage);
+        CGFloat fixelH = CGImageGetHeight(image.CGImage);
+        CGFloat itemHeight = fixelH * itemWidth / fixelW;
+        return itemHeight + 50;
+    } else {
+        return 300;
+    }
 }
 
 - (NSInteger)columnCountInWaterflowLayout:(WaterfallCollectionViewLayout *)waterflowLayout{
