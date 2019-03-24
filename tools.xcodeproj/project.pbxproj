@@ -24,6 +24,7 @@
 		506DE053223FFDFA00BE758A /* 蚊子.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE052223FFDFA00BE758A /* 蚊子.mp3 */; };
 		50BF40EA22461A1700AAB2A4 /* FetchDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF40E822461A1700AAB2A4 /* FetchDetail.m */; };
 		50BF40EE22461A2200AAB2A4 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF40EC22461A2200AAB2A4 /* ScanViewController.m */; };
+		50BF40F222480CAC00AAB2A4 /* ScanCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF40F122480CAC00AAB2A4 /* ScanCollectionViewCell.m */; };
 		939EC7E422436B9700F64A0D /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 939EC7E322436B9700F64A0D /* HomeCollectionViewCell.m */; };
 		93BE51982244DB6900CDCF30 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BE51972244DB6900CDCF30 /* WebViewController.m */; };
 		93BE519B2244DECA00CDCF30 /* WaterfallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BE519A2244DECA00CDCF30 /* WaterfallCollectionViewCell.m */; };
@@ -94,6 +95,8 @@
 		50BF40EC22461A2200AAB2A4 /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		50BF40ED22461A2200AAB2A4 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		50BF40EF2246296500AAB2A4 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		50BF40F022480CAC00AAB2A4 /* ScanCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanCollectionViewCell.h; sourceTree = "<group>"; };
+		50BF40F122480CAC00AAB2A4 /* ScanCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanCollectionViewCell.m; sourceTree = "<group>"; };
 		68594D44FFD241058397E93C /* Pods-tools.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tools.release.xcconfig"; path = "Pods/Target Support Files/Pods-tools/Pods-tools.release.xcconfig"; sourceTree = "<group>"; };
 		8CBF05A8EC0C5DFF667F2F51 /* libPods-tools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tools.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DC75084102E230B6709ACA9 /* Pods-tools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tools.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tools/Pods-tools.debug.xcconfig"; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 			children = (
 				50BF40ED22461A2200AAB2A4 /* ScanViewController.h */,
 				50BF40EC22461A2200AAB2A4 /* ScanViewController.m */,
+				50BF40F022480CAC00AAB2A4 /* ScanCollectionViewCell.h */,
+				50BF40F122480CAC00AAB2A4 /* ScanCollectionViewCell.m */,
 			);
 			path = scan;
 			sourceTree = "<group>";
@@ -561,6 +566,7 @@
 				93D1DA1A2243D0D400E61BEF /* OCGumbo+Query.m in Sources */,
 				93D1DA0D2243D0D400E61BEF /* string_buffer.c in Sources */,
 				93BE519B2244DECA00CDCF30 /* WaterfallCollectionViewCell.m in Sources */,
+				50BF40F222480CAC00AAB2A4 /* ScanCollectionViewCell.m in Sources */,
 				93D1DA182243D0D400E61BEF /* tokenizer.c in Sources */,
 				93D1DA142243D0D400E61BEF /* error.c in Sources */,
 				93BE519E2244DF5A00CDCF30 /* WaterfallModel.m in Sources */,

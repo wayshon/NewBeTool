@@ -1,23 +1,22 @@
 //
-//  WaterfallCollectionViewCell.m
+//  ScanCollectionViewCell.m
 //  tools
 //
-//  Created by jike1 on 2019/3/22.
+//  Created by 王旭 on 2019/3/25.
 //  Copyright © 2019 王旭. All rights reserved.
 //
 
-#import "WaterfallCollectionViewCell.h"
+#import "ScanCollectionViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface WaterfallCollectionViewCell()
+@interface ScanCollectionViewCell()
 
 @property (nonatomic, strong) UIImageView *imgView;
-@property (nonatomic, strong) UILabel *label;
 @property (nonatomic, assign) BOOL isInited;
 
 @end
 
-@implementation WaterfallCollectionViewCell
+@implementation ScanCollectionViewCell
 
 - (instancetype)init {
     self = [super init];
@@ -45,37 +44,22 @@
         _isInited = YES;
         
         self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        self.imgView.clipsToBounds = YES;
-        
-        self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
-        self.label.textColor = [UIColor colorWithRed:0 green:255 blue:255 alpha:1];
-        self.label.font = [UIFont fontWithName:@"Arial" size:18.0f];
-        self.label.textAlignment = 1;
-        self.label.numberOfLines = 0;
+        self.imgView.contentMode = UIViewContentModeScaleAspectFit;
         
         [self setBackgroundColor:[UIColor colorWithRed:182 green:238 blue:238 alpha:1]];
     }
 }
 
-- (void)setModel:(WaterfallModel *)model {
-    _model = model;
-    
+- (void)setSrc:(NSString *)src {
+    _src = src;
     [self updateViews];
-    
-    NSString *src = _model.src;
-    NSString *title = _model.title;
-    
-//    [self.imgView setImage:[UIImage imageNamed:src]];
     [self.imgView sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[self createImageWithColor: RandomRGBColor]];
     [self addSubview:self.imgView];
-    self.label.text = title;
-    [self addSubview:self.label];
 }
 
 - (void)updateViews {
     CGSize size = self.bounds.size;
     [self.imgView setFrame:CGRectMake(0, 0, size.width, size.height - 28)];
-    [self.label setFrame:CGRectMake(0, size.height - 23, size.width, 18)];
 }
 
 - (UIImage*)createImageWithColor: (UIColor*) color {

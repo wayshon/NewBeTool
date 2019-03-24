@@ -14,9 +14,6 @@
 #import "ScanViewController.h"
 #import "WaterfallModel.h"
 
-#define RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
-#define RandomRGBColor RGBColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
-
 @interface WaterfallCollectionViewController ()<WaterfallCollectionViewDelegate>
 
 @property (nonatomic, strong) NSArray *productArray;
@@ -53,7 +50,7 @@ static NSString * const reuseIdentifier = @"WXCell";
 - (NSArray *)productArray {
     if (_productArray == nil) {
         if ([_number integerValue] == 1) {
-            _productArray = @[@{@"title":@"豆豆", @"title":@"1", @"href":@""},@{@"title":@"豆豆", @"title":@"2", @"href":@""},@{@"title":@"豆豆", @"title":@"3", @"href":@""},@{@"title":@"豆豆", @"title":@"4", @"href":@""},@{@"title":@"豆豆", @"title":@"5", @"href":@""},@{@"title":@"豆豆", @"title":@"6", @"href":@""},@{@"title":@"豆豆", @"title":@"7", @"href":@""},@{@"title":@"豆豆", @"title":@"8", @"href":@""},@{@"title":@"豆豆", @"title":@"9", @"href":@""},@{@"title":@"豆豆", @"title":@"10", @"href":@""},@{@"title":@"豆豆", @"title":@"11", @"href":@""},@{@"title":@"豆豆", @"title":@"12", @"href":@""},@{@"title":@"豆豆", @"title":@"13", @"href":@""},@{@"title":@"豆豆", @"title":@"14", @"href":@""},@{@"title":@"豆豆", @"title":@"15", @"href":@""},@{@"title":@"豆豆", @"title":@"16", @"href":@""},@{@"title":@"豆豆", @"title":@"17", @"href":@""},@{@"title":@"豆豆", @"title":@"18", @"href":@""}];
+            _productArray = @[@{@"title":@"豆豆", @"src":@"1", @"href":@""},@{@"title":@"豆豆", @"src":@"2", @"href":@""},@{@"title":@"豆豆", @"src":@"3", @"href":@""},@{@"title":@"豆豆", @"src":@"4", @"href":@""},@{@"title":@"豆豆", @"src":@"5", @"href":@""},@{@"title":@"豆豆", @"src":@"6", @"href":@""},@{@"title":@"豆豆", @"src":@"7", @"href":@""},@{@"title":@"豆豆", @"src":@"8", @"href":@""},@{@"title":@"豆豆", @"src":@"9", @"href":@""},@{@"title":@"豆豆", @"src":@"10", @"href":@""},@{@"title":@"豆豆", @"src":@"11", @"href":@""},@{@"title":@"豆豆", @"src":@"12", @"href":@""},@{@"title":@"豆豆", @"src":@"13", @"href":@""},@{@"title":@"豆豆", @"src":@"14", @"href":@""},@{@"title":@"豆豆", @"src":@"15", @"href":@""},@{@"title":@"豆豆", @"src":@"16", @"href":@""},@{@"title":@"豆豆", @"src":@"17", @"href":@""},@{@"title":@"豆豆", @"src":@"18", @"href":@""}];
         } else if ([_number integerValue] == 2) {
             _productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];
         }
@@ -89,9 +86,11 @@ static NSString * const reuseIdentifier = @"WXCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSObject *obj = [self.productArray objectAtIndex:indexPath.item];
     NSString *url = [obj valueForKey:@"href"];
+    NSString *title = [obj valueForKey:@"title"];
     if (url && ![url isEqualToString:@""]) {
         ScanViewController *vc = [ScanViewController new];
         vc.path = url;
+        vc.desc = title;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
