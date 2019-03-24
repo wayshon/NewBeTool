@@ -45,6 +45,7 @@ static NSString * const reuseIdentifier = @"WXCell";
             [self.collectionView reloadData];
         });
     };
+    [self refresh];
 }
 
 - (NSArray *)productArray {
@@ -58,7 +59,18 @@ static NSString * const reuseIdentifier = @"WXCell";
     return _productArray;
 }
 
-
+- (void)refresh {
+    [[Fetch sharedFetch] refresh:^(NSArray *result1) {
+        NSLog(@"result 1 === %@", result1);
+        [[Fetch sharedFetch] loadMore:^(NSArray *result2) {
+            NSLog(@"result 2 === %@", result2);
+            [[Fetch sharedFetch] loadMore:^(NSArray *result3) {
+                NSLog(@"result 3 === %@", result3);
+                NSLog(@"result 3 === %@", result3);
+            }];
+        }];
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

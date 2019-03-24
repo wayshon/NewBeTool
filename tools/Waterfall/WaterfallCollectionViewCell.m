@@ -45,7 +45,7 @@
         _isInited = YES;
         
         self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        self.imgView.clipsToBounds = YES;
+        self.imgView.contentMode = UIViewContentModeScaleAspectFit;
         
         self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.label.textColor = [UIColor colorWithRed:0 green:255 blue:255 alpha:1];

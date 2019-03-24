@@ -19,11 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef void(^FetchDataBlock)(NSArray * _Nullable array);
 
+typedef void(^FetchBlock)(NSArray * _Nullable array);
+
 @property (nonatomic, strong) NSArray *list;
 
 @property(nonatomic, copy) FetchDataBlock block;
 
 + (instancetype)sharedFetch;
+
+- (void)refresh:(FetchBlock)block;
+- (void)loadMore:(FetchBlock)block;
 
 @end
 
