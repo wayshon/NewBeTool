@@ -13,50 +13,46 @@
 @implementation FetchDetail
 
 + (void)fetchData: (NSString *)path Block:(FetchDetailBlock)block {
-    NSMutableArray *array = [NSMutableArray new];
-    [self fetchList:path Block:block Result:array];
+    [self fetchList:path Block:block];
 }
 
-+ (void)fetchList: (NSString *)path Block:(FetchDetailBlock)block Result: (NSMutableArray *)result {
++ (void)fetchList: (NSString *)path Block:(FetchDetailBlock)block {
     NSString *urlString = [path stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLSessionDataTask * dataTask =  [session dataTaskWithRequest:request completionHandler:^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
-        [self dealData:data Block:block Result:result Path:(NSString *)path];
+        [self dealData:data Block:block];
     }];
     [dataTask resume];
 }
 
-+ (void)dealData: (NSData *)data Block:(FetchDetailBlock)block Result: (NSMutableArray *)result Path:(NSString *)path {
++ (void)dealData: (NSData *)data Block:(FetchDetailBlock)block {
     NSStringEncoding gbkEncodeing = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSString *htmlString = [[NSString alloc]initWithData:data encoding:gbkEncodeing];
     
     if (!htmlString || [htmlString isEqualToString:@""]) {
         return;
     }
+    
     OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
     OCGumboNode *p = document.Query(@"#picBody").find(@"p").first();
-    OCGumboNode *a = p.Query(@"a").first();
     OCGumboNode *img = p.Query(@"img").first();
+    NSString *src = img.attr(@"src");
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[src componentsSeparatedByString:@"/"]];
+    [tempArray removeLastObject];
+    NSString *baseSrc = [tempArray componentsJoinedByString:@"/"];
     
-    if (img) {
-        NSString *src = img.attr(@"src");
-        [result addObject:src];
-    }
+    NSString *pageinfo = document.Query(@"#pageinfo").first().attr(@"pageinfo");
+    int pageCount = [pageinfo intValue];
     
-    if (a) {
-        NSString *href = a.attr(@"href");
-        
-        NSString *url = [NSString stringWithString:path];
-        NSMutableArray *urlItems = [NSMutableArray arrayWithArray:[url componentsSeparatedByString:@"/"]];
-        urlItems[[urlItems count] - 1] = href;
-        NSString *nextPath = [urlItems componentsJoinedByString:@"/"];
-        [self fetchList:nextPath Block:block Result:result];
-    } else {
-        block(result);
+    NSMutableArray *srcArray = [NSMutableArray new];
+    for (int i = 0; i < pageCount; i++) {
+        NSString *src = [NSString stringWithFormat:@"%@/%d.jpg", baseSrc, i+1];
+        [srcArray addObject:src];
     }
+    block(srcArray);
 }
 
 @end
