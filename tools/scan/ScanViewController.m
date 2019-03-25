@@ -37,7 +37,7 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
 
 - (void)initData {
     if (_path) {
-        [SVProgressHUD showWithStatus:@"加载中.."];
+        [SVProgressHUD showWithStatus:@"努力加载中.."];
         [FetchDetail fetchData:_path Block:^(NSArray *result) {
             NSLog(@"*****  result  == %@", result);
             self.imgs = [NSMutableArray arrayWithArray:result];
