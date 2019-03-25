@@ -18,7 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [Fetch sharedFetch];
+    [[Fetch sharedFetch] refresh:^(NSArray * _Nullable array) {
+        
+    }];
     return YES;
 }
 

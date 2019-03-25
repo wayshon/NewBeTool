@@ -13,6 +13,8 @@
 #import "WaterfallCollectionViewCell.h"
 #import "ScanViewController.h"
 #import "WaterfallModel.h"
+#import "MJRefresh.h"
+#import "SVProgressHUD.h"
 
 @interface WaterfallCollectionViewController ()<WaterfallCollectionViewDelegate>
 
@@ -34,18 +36,8 @@ static NSString * const reuseIdentifier = @"WXCell";
     [super viewDidLoad];
     self.title = @"萌图";
     
-    [self.collectionView registerClass:[WaterfallCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    self.collectionView.backgroundColor = RGBColor(235, 235, 235);
-    
-    [Fetch sharedFetch].block = ^(NSArray *array){
-        NSLog(@"block ==================  %@", array);
-        NSArray *tempArray = [self.productArray arrayByAddingObjectsFromArray:array];
-        self.productArray = [NSArray arrayWithArray:tempArray];
-        dispatch_async(dispatch_get_main_queue(), ^() {
-            [self.collectionView reloadData];
-        });
-    };
-    [self refresh];
+    [self initView];
+    [self initData];
 }
 
 - (NSArray *)productArray {
@@ -53,23 +45,58 @@ static NSString * const reuseIdentifier = @"WXCell";
         if ([_number integerValue] == 1) {
             _productArray = @[@{@"title":@"豆豆", @"src":@"1", @"href":@""},@{@"title":@"豆豆", @"src":@"2", @"href":@""},@{@"title":@"豆豆", @"src":@"3", @"href":@""},@{@"title":@"豆豆", @"src":@"4", @"href":@""},@{@"title":@"豆豆", @"src":@"5", @"href":@""},@{@"title":@"豆豆", @"src":@"6", @"href":@""},@{@"title":@"豆豆", @"src":@"7", @"href":@""},@{@"title":@"豆豆", @"src":@"8", @"href":@""},@{@"title":@"豆豆", @"src":@"9", @"href":@""},@{@"title":@"豆豆", @"src":@"10", @"href":@""},@{@"title":@"豆豆", @"src":@"11", @"href":@""},@{@"title":@"豆豆", @"src":@"12", @"href":@""},@{@"title":@"豆豆", @"src":@"13", @"href":@""},@{@"title":@"豆豆", @"src":@"14", @"href":@""},@{@"title":@"豆豆", @"src":@"15", @"href":@""},@{@"title":@"豆豆", @"src":@"16", @"href":@""},@{@"title":@"豆豆", @"src":@"17", @"href":@""},@{@"title":@"豆豆", @"src":@"18", @"href":@""}];
         } else if ([_number integerValue] == 2) {
-            _productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];
+            if (![Fetch sharedFetch].list || [[Fetch sharedFetch].list count] == 0) {
+                [[Fetch sharedFetch] refresh:^(NSArray *result) {
+                    [self refreshCallback:result];
+                    [self.collectionView.mj_header endRefreshing];
+                }];
+            } else {
+                _productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];
+            }
+            
         }
     }
     return _productArray;
 }
 
-- (void)refresh {
-    [[Fetch sharedFetch] refresh:^(NSArray *result1) {
-        NSLog(@"result 1 === %@", result1);
-        [[Fetch sharedFetch] loadMore:^(NSArray *result2) {
-            NSLog(@"result 2 === %@", result2);
-            [[Fetch sharedFetch] loadMore:^(NSArray *result3) {
-                NSLog(@"result 3 === %@", result3);
-                NSLog(@"result 3 === %@", result3);
-            }];
+- (void)initData {
+    [Fetch sharedFetch].block = ^(NSArray *array){
+        NSArray *tempArray = [self.productArray arrayByAddingObjectsFromArray:array];
+        self.productArray = [NSArray arrayWithArray:tempArray];
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            [self.collectionView reloadData];
+        });
+    };
+}
+
+- (void)initView {
+    [self.collectionView registerClass:[WaterfallCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    self.collectionView.backgroundColor = RGBColor(235, 235, 235);
+    
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [[Fetch sharedFetch] refresh:^(NSArray *result) {
+            [self refreshCallback:result];
+            [self.collectionView.mj_header endRefreshing];
         }];
     }];
+    
+    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [[Fetch sharedFetch] loadMore:^(NSArray *result) {
+            [self refreshCallback:result];
+            [self.collectionView.mj_footer endRefreshing];
+        }];
+    }];
+}
+
+- (void)refreshCallback: (NSArray *)result {
+    if ([result count] == 0) {
+        [SVProgressHUD showErrorWithStatus:@"没有数据了~_~"];
+    } else {
+        self.productArray = [NSArray arrayWithArray:result];
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            [self.collectionView reloadData];
+        });
+    }
 }
 
 - (void)didReceiveMemoryWarning {
