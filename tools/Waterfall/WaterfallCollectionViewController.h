@@ -10,6 +10,4 @@
 
 @interface WaterfallCollectionViewController : UICollectionViewController
 
-@property (nonatomic, strong) NSNumber *number;
-
 @end

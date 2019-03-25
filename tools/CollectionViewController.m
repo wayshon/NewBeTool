@@ -11,6 +11,7 @@
 #import "DetailViewController.h"
 #import "WaterfallCollectionViewController.h"
 #import "SVProgressHUD.h"
+#import "DoudouCollectionViewController.h"
 
 @interface CollectionViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) NSArray *imgs;
@@ -102,19 +103,34 @@
 }
 
 - (void)judge {
-    NSInteger permissionNumber = [[NSUserDefaults standardUserDefaults] integerForKey:@"permissionNumber"];
-    if (permissionNumber != 0) {
-        [self goFunnyArea: permissionNumber];
-    } else {
-        [self alert];
-    }
+    [self goFunnyArea: 1];
+//    NSInteger permissionNumber = [[NSUserDefaults standardUserDefaults] integerForKey:@"permissionNumber"];
+//    if (permissionNumber != 0) {
+//        [self goFunnyArea: permissionNumber];
+//    } else {
+//        [self alert];
+//    }
 }
 
 - (void)goFunnyArea: (NSInteger)number {
     [[NSUserDefaults standardUserDefaults] setInteger:number forKey:@"permissionNumber"];
-    WaterfallCollectionViewController *vc = [WaterfallCollectionViewController new];
-    vc.number = @(number);
-    [self.navigationController pushViewController:vc animated:YES];
+    switch (number) {
+        case 1:
+        {
+            DoudouCollectionViewController *vc = [DoudouCollectionViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            WaterfallCollectionViewController *vc = [WaterfallCollectionViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)alert {

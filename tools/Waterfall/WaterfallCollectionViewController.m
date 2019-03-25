@@ -42,18 +42,13 @@ static NSString * const reuseIdentifier = @"WXCell";
 
 - (NSArray *)productArray {
     if (_productArray == nil) {
-        if ([_number integerValue] == 1) {
-            _productArray = @[@{@"title":@"豆豆", @"src":@"1", @"href":@""},@{@"title":@"豆豆", @"src":@"2", @"href":@""},@{@"title":@"豆豆", @"src":@"3", @"href":@""},@{@"title":@"豆豆", @"src":@"4", @"href":@""},@{@"title":@"豆豆", @"src":@"5", @"href":@""},@{@"title":@"豆豆", @"src":@"6", @"href":@""},@{@"title":@"豆豆", @"src":@"7", @"href":@""},@{@"title":@"豆豆", @"src":@"8", @"href":@""},@{@"title":@"豆豆", @"src":@"9", @"href":@""},@{@"title":@"豆豆", @"src":@"10", @"href":@""},@{@"title":@"豆豆", @"src":@"11", @"href":@""},@{@"title":@"豆豆", @"src":@"12", @"href":@""},@{@"title":@"豆豆", @"src":@"13", @"href":@""},@{@"title":@"豆豆", @"src":@"14", @"href":@""},@{@"title":@"豆豆", @"src":@"15", @"href":@""},@{@"title":@"豆豆", @"src":@"16", @"href":@""},@{@"title":@"豆豆", @"src":@"17", @"href":@""},@{@"title":@"豆豆", @"src":@"18", @"href":@""}];
-        } else if ([_number integerValue] == 2) {
-            if (![Fetch sharedFetch].list || [[Fetch sharedFetch].list count] == 0) {
-                [[Fetch sharedFetch] refresh:^(NSArray *result) {
-                    [self refreshCallback:result];
-                    [self.collectionView.mj_header endRefreshing];
-                }];
-            } else {
-                _productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];
-            }
-            
+        if (![Fetch sharedFetch].list || [[Fetch sharedFetch].list count] == 0) {
+            [[Fetch sharedFetch] refresh:^(NSArray *result) {
+                [self refreshCallback:result];
+                [self.collectionView.mj_header endRefreshing];
+            }];
+        } else {
+            _productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];
         }
     }
     return _productArray;

@@ -15,6 +15,7 @@
 		50114908223FE44700E7AA2B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 50114907223FE44700E7AA2B /* main.m */; };
 		50114912223FE44700E7AA2B /* toolsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50114911223FE44700E7AA2B /* toolsTests.m */; };
 		5011491D223FE44700E7AA2B /* toolsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5011491C223FE44700E7AA2B /* toolsUITests.m */; };
+		5067804B2248D132007BDBDD /* DoudouCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5067804A2248D132007BDBDD /* DoudouCollectionViewController.m */; };
 		506DE041223FE97100BE758A /* 危险.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE03D223FE97100BE758A /* 危险.mp3 */; };
 		506DE042223FE97100BE758A /* SOS.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE03E223FE97100BE758A /* SOS.mp3 */; };
 		506DE043223FE97100BE758A /* 警报器.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 506DE03F223FE97100BE758A /* 警报器.mp3 */; };
@@ -83,6 +84,8 @@
 		50114918223FE44700E7AA2B /* toolsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = toolsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5011491C223FE44700E7AA2B /* toolsUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = toolsUITests.m; sourceTree = "<group>"; };
 		5011491E223FE44700E7AA2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		506780492248D132007BDBDD /* DoudouCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoudouCollectionViewController.h; sourceTree = "<group>"; };
+		5067804A2248D132007BDBDD /* DoudouCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoudouCollectionViewController.m; sourceTree = "<group>"; };
 		506DE03D223FE97100BE758A /* 危险.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "危险.mp3"; sourceTree = "<group>"; };
 		506DE03E223FE97100BE758A /* SOS.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SOS.mp3; sourceTree = "<group>"; };
 		506DE03F223FE97100BE758A /* 警报器.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "警报器.mp3"; sourceTree = "<group>"; };
@@ -208,6 +211,7 @@
 			children = (
 				93D1D9E62243D0C000E61BEF /* libs */,
 				506DE03C223FE97100BE758A /* voice */,
+				506780452248D096007BDBDD /* doudou */,
 				93D1D9BD2243B54C00E61BEF /* Waterfall */,
 				50BF40EB22461A2200AAB2A4 /* scan */,
 				93D1D9D22243CA1D00E61BEF /* fetchData */,
@@ -247,6 +251,15 @@
 				5011491E223FE44700E7AA2B /* Info.plist */,
 			);
 			path = toolsUITests;
+			sourceTree = "<group>";
+		};
+		506780452248D096007BDBDD /* doudou */ = {
+			isa = PBXGroup;
+			children = (
+				506780492248D132007BDBDD /* DoudouCollectionViewController.h */,
+				5067804A2248D132007BDBDD /* DoudouCollectionViewController.m */,
+			);
+			path = doudou;
 			sourceTree = "<group>";
 		};
 		506DE03C223FE97100BE758A /* voice */ = {
@@ -584,6 +597,7 @@
 				93D1DA1B2243D0D400E61BEF /* OCGumbo.m in Sources */,
 				93D1DA0E2243D0D400E61BEF /* util.c in Sources */,
 				50BF40EA22461A1700AAB2A4 /* FetchDetail.m in Sources */,
+				5067804B2248D132007BDBDD /* DoudouCollectionViewController.m in Sources */,
 				50114908223FE44700E7AA2B /* main.m in Sources */,
 				93BE51982244DB6900CDCF30 /* WebViewController.m in Sources */,
 				501148FA223FE44500E7AA2B /* AppDelegate.m in Sources */,

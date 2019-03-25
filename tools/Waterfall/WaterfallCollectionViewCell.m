@@ -65,8 +65,12 @@
     NSString *src = _model.src;
     NSString *title = _model.title;
     
-//    [self.imgView setImage:[UIImage imageNamed:src]];
-    [self.imgView sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[self createImageWithColor: RandomRGBColor]];
+    if ([src rangeOfString:@"https://"].location == NSNotFound || [src rangeOfString:@"http://"].location == NSNotFound) {
+        [self.imgView setImage:[UIImage imageNamed:src]];
+    } else {
+        [self.imgView sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[self createImageWithColor: RandomRGBColor]];
+    }
+    
     [self addSubview:self.imgView];
     self.label.text = title;
     [self addSubview:self.label];
