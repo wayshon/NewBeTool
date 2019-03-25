@@ -65,7 +65,7 @@
     NSString *src = _model.src;
     NSString *title = _model.title;
     
-    if ([src rangeOfString:@"https://"].location == NSNotFound || [src rangeOfString:@"http://"].location == NSNotFound) {
+    if ([src rangeOfString:@"https://"].location == NSNotFound && [src rangeOfString:@"http://"].location == NSNotFound) {
         [self.imgView setImage:[UIImage imageNamed:src]];
     } else {
         [self.imgView sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[self createImageWithColor: RandomRGBColor]];

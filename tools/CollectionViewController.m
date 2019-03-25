@@ -103,13 +103,12 @@
 }
 
 - (void)judge {
-    [self goFunnyArea: 1];
-//    NSInteger permissionNumber = [[NSUserDefaults standardUserDefaults] integerForKey:@"permissionNumber"];
-//    if (permissionNumber != 0) {
-//        [self goFunnyArea: permissionNumber];
-//    } else {
-//        [self alert];
-//    }
+    NSInteger permissionNumber = [[NSUserDefaults standardUserDefaults] integerForKey:@"permissionNumber"];
+    if (permissionNumber != 0) {
+        [self goFunnyArea: permissionNumber];
+    } else {
+        [self alert];
+    }
 }
 
 - (void)goFunnyArea: (NSInteger)number {
@@ -148,14 +147,11 @@
             [self presentViewController:alertController animated:YES completion:nil];
         } else if ([code isEqualToString:@"doudou"]){
             [self goFunnyArea: 1];
+        } else if ([code isEqualToString:@"calcbit.com"]) {
+            [self goFunnyArea: 2];
         } else {
-            //        请求接口
-            
-//            mock
-            if (true) {
-                [SVProgressHUD showErrorWithStatus:@"邀请码不正确"];
-                [self presentViewController:alertController animated:YES completion:nil];
-            }
+            [SVProgressHUD showErrorWithStatus:@"邀请码不正确"];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
     }];
     
