@@ -35,9 +35,9 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
     
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [SVProgressHUD dismiss];
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
 }
 
 - (void)initData {
@@ -84,7 +84,8 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
     self.collectionView.dataSource = self;
     [self.collectionView registerClass:[ScanCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     self.collectionView.bounces = NO;
-    [self.view addSubview:self.collectionView];}
+    [self.view addSubview:self.collectionView];
+}
 
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
