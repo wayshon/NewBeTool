@@ -40,12 +40,21 @@ static NSString * const reuseIdentifier = @"WXCell";
     [self initData];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [SVProgressHUD dismiss];
+    [super viewDidDisappear:animated];
+}
+
 - (NSArray *)productArray {
     if (_productArray == nil) {
         if (![Fetch sharedFetch].list || [[Fetch sharedFetch].list count] == 0) {
+            [SVProgressHUD showWithStatus:@"努力加载中.."];
             [[Fetch sharedFetch] refresh:^(NSArray *result) {
                 [self refreshCallback:result];
                 [self.collectionView.mj_header endRefreshing];
+                dispatch_async(dispatch_get_main_queue(), ^() {
+                    [SVProgressHUD dismiss];
+                });
             }];
         } else {
             _productArray = [NSArray arrayWithArray:[Fetch sharedFetch].list];

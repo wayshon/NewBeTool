@@ -35,6 +35,11 @@ static NSString * const reuseIdentifier = @"WXDetailCell";
     
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [SVProgressHUD dismiss];
+    [super viewDidDisappear:animated];
+}
+
 - (void)initData {
     if (_path) {
         [SVProgressHUD showWithStatus:@"努力加载中.."];

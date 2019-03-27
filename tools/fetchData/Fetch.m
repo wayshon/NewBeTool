@@ -66,9 +66,9 @@ static Fetch *singInstance = nil;
 }
 
 - (void)getRoute: (NSString *)route block:(FetchBlock)block {
-    NSString *urlString = [[NSString stringWithFormat:@"%@%@%@", HOST, PATH, route] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *urlString = [[NSString stringWithFormat:@"%@%@%@?time=%ld", HOST, PATH, route, (long)[[NSDate date] timeIntervalSince1970]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLSessionDataTask * dataTask =  [session dataTaskWithRequest:request completionHandler:^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
