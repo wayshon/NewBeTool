@@ -8,6 +8,8 @@
 
 #import "DetailViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+#import "SVProgressHUD.h"
 
 @interface DetailViewController ()
 @property (weak, nonatomic) IBOutlet UIView *statusView;
@@ -32,16 +34,23 @@ void vibraCompleteCallback(SystemSoundID sound,void * clientData) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSArray *vibrates = @[@"剃须刀", @"电锯"];
+    if ([[AVAudioSession sharedInstance].category isEqualToString:AVAudioSessionCategoryAmbient] || [[AVAudioSession sharedInstance].category isEqualToString:AVAudioSessionCategorySoloAmbient]) {
+        [SVProgressHUD showErrorWithStatus:@"请打开静音键才能听到声效"];
+    }
     
-    [vibrates enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj == self.imgPath) {
-            self.isNeedVibrate = YES;
-            *stop = YES;
-        } else {
-            self.isNeedVibrate = NO;
-        }
-    }];
+//    NSArray *vibrates = @[@"剃须刀", @"电锯"];
+//
+//    [vibrates enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if (obj == self.imgPath) {
+//            self.isNeedVibrate = YES;
+//            *stop = YES;
+//        } else {
+//            self.isNeedVibrate = NO;
+//        }
+//    }];
+    
+//    这里改成全部需要震动
+    self.isNeedVibrate = YES;
     
     [self.navigationItem setTitle: _imgPath];
     
