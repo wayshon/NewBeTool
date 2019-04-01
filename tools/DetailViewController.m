@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SVProgressHUD.h"
 
 @interface DetailViewController ()
 @property (weak, nonatomic) IBOutlet UIView *statusView;
@@ -37,6 +38,13 @@ void vibraCompleteCallback(SystemSoundID sound,void * clientData) {
     
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    CGFloat currentVol = audioSession.outputVolume;
+    
+    if (currentVol <= 0) {
+        [SVProgressHUD showInfoWithStatus:@"请调高手机音量"];
+    }
     
 //    NSArray *vibrates = @[@"剃须刀", @"电锯"];
 //
