@@ -9,7 +9,6 @@
 #import "DetailViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
-#import "SVProgressHUD.h"
 
 @interface DetailViewController ()
 @property (weak, nonatomic) IBOutlet UIView *statusView;
@@ -18,6 +17,8 @@
 
 @property (nonatomic, assign) BOOL deviceOpen;//开关
 @property (nonatomic, assign) BOOL isNeedVibrate;//是否需要震动
+
+@property AVAudioPlayer* player;
 
 @end
 
@@ -34,9 +35,8 @@ void vibraCompleteCallback(SystemSoundID sound,void * clientData) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if ([[AVAudioSession sharedInstance].category isEqualToString:AVAudioSessionCategoryAmbient] || [[AVAudioSession sharedInstance].category isEqualToString:AVAudioSessionCategorySoloAmbient]) {
-        [SVProgressHUD showErrorWithStatus:@"请打开静音键才能听到声效"];
-    }
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
 //    NSArray *vibrates = @[@"剃须刀", @"电锯"];
 //
@@ -96,15 +96,28 @@ void vibraCompleteCallback(SystemSoundID sound,void * clientData) {
 }
 
 - (void)startVoice {
+//    NSString *path = [[NSBundle mainBundle] pathForResource:_imgPath ofType:@"mp3"];
+//    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &_sound);
+//    AudioServicesAddSystemSoundCompletion(_sound, NULL, NULL, soundCompleteCallback, NULL);
+//    AudioServicesPlaySystemSound(_sound);
+    
     NSString *path = [[NSBundle mainBundle] pathForResource:_imgPath ofType:@"mp3"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &_sound);
-    AudioServicesAddSystemSoundCompletion(_sound, NULL, NULL, soundCompleteCallback, NULL);
-    AudioServicesPlaySystemSound(_sound);
+    NSURL* url = [NSURL fileURLWithPath:path];
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    self.player.volume = 0.5;
+    //设置循环次数，如果为负数，就是无限循环
+    self.player.numberOfLoops =-1;
+    //设置播放进度
+    self.player.currentTime = 0;
+    //准备播放
+    [self.player prepareToPlay];
+    [self.player play];
 }
 
 - (void)stopVoice {
-    AudioServicesDisposeSystemSoundID(_sound);
-    AudioServicesRemoveSystemSoundCompletion(_sound);
+//    AudioServicesDisposeSystemSoundID(_sound);
+//    AudioServicesRemoveSystemSoundCompletion(_sound);
+    [self.player stop];
 }
 
 - (void)startVibrate {
